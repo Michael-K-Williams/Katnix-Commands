@@ -110,7 +110,7 @@ cmd_switch() {
     
     cd "$CONFIG_DIR"
     print_info "Running nixos-rebuild switch..."
-    sudo nixos-rebuild switch --flake ".#$machine_name"
+    sudo nixos-rebuild switch --flake ".#$machine_name" --impure
     
     print_success "System switch completed successfully!"
 }
@@ -129,7 +129,7 @@ cmd_update() {
     sudo nix flake update
     
     print_info "Running nixos-rebuild switch..."
-    sudo nixos-rebuild switch --flake ".#$machine_name"
+    sudo nixos-rebuild switch --flake ".#$machine_name" --impure
     
     print_success "Update and switch completed successfully!"
 }
@@ -195,7 +195,7 @@ cmd_dry() {
     
     cd "$CONFIG_DIR"
     print_info "Running nixos-rebuild dry-run..."
-    sudo nixos-rebuild dry-run --flake ".#$machine_name"
+    sudo nixos-rebuild dry-run --flake ".#$machine_name" --impure
     
     print_success "Dry run completed successfully!"
 }
