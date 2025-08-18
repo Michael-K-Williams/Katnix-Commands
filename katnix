@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 # Katnix - NixOS Configuration Management Tool
-# Usage: katnix [command]
+# U# Get the current machine name from hostname
+get_machine_name() {
+    # With the new system, we always use "default"
+    echo "default"
+}d]
 
 set -e
 
@@ -63,7 +67,7 @@ print_warning() {
 
 # Check if we're running on NixOS
 check_nixos() {
-    if [[ ! -f /etc/NIXOS ]]; then
+    if [[ ! -f /etc/nixos/configuration.nix ]] && [[ ! -f /etc/NIXOS ]]; then
         print_error "This command can only be run on NixOS systems"
         exit 1
     fi
