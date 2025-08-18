@@ -74,17 +74,17 @@ get_machine_name() {
     local hostname=$(hostname)
     case "$hostname" in
         *-desktop|*Desktop)
-            echo "KatnixDesktop"
+            echo "Katnix-Desktop"
             ;;
         *-laptop|*Laptop)
-            echo "KatnixLaptop"
+            echo "Katnix-Laptop"
             ;;
         *)
             # Fallback: capitalize first letter and add Katnix prefix if not present
             if [[ "$hostname" == Katnix* ]]; then
                 echo "$hostname"
             else
-                echo "Katnix$(tr '[:lower:]' '[:upper:]' <<< ${hostname:0:1})${hostname:1}"
+                echo "Katnix-$(tr '[:lower:]' '[:upper:]' <<< ${hostname:0:1})${hostname:1}"
             fi
             ;;
     esac
