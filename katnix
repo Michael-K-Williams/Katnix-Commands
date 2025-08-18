@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
 # Katnix - NixOS Configuration Management Tool
-# U# Get the current machine name from hostname
-get_machine_name() {
-    # With the new system, we always use "default"
-    echo "default"
-}d]
+# Usage: katnix [command]
 
 set -e
 
