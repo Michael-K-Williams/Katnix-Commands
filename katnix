@@ -140,8 +140,33 @@ cmd_git() {
     if [[ -d "$CONFIG_DIR" ]]; then
         print_info "Updating existing configuration from git..."
         cd "$CONFIG_DIR"
-        git pull origin main
-        print_success "Configuration updated from git"
+        
+        # Check if there are local changes
+        if ! git diff-index --quiet HEAD --; then
+            print_warning "Local changes detected, stashing them..."
+            git stash push -m "Auto-stash before katnix git update $(date)"
+            print_info "Local changes stashed"
+        fi
+        
+        # Pull latest changes
+        if git pull origin main; then
+            print_success "Configuration updated from git"
+            
+            # Check if there are stashed changes to restore
+            if git stash list | grep -q "Auto-stash before katnix git update"; then
+                print_info "Attempting to restore stashed changes..."
+                if git stash pop; then
+                    print_success "Local changes restored successfully"
+                else
+                    print_warning "Merge conflicts detected in stashed changes"
+                    print_info "Your changes are saved in the stash. Use 'git stash list' to see them"
+                    print_info "Use 'git stash apply' to manually apply them later"
+                fi
+            fi
+        else
+            print_error "Failed to update from git"
+            exit 1
+        fi
     else
         print_info "Cloning configuration repository..."
         git clone "$CONFIG_REPO" "$CONFIG_DIR"
